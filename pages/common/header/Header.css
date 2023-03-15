@@ -1,0 +1,12 @@
+.header {
+    margin-top: 20px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.header-logo {
+    max-width: 100%;
+    height: auto;
+
+}
