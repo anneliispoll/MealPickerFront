@@ -11,3 +11,8 @@ export const authenticate = (email, password) => {
 export const register = (firstname, lastname, email, password) => {
     return api.post('/register', { firstname, lastname, email, password });
   };
+
+  export const random = (seasonName, mealTimeName) => {
+    return api.get('/random', { 
+      params: { seasonName, mealTimeName } })
+  };

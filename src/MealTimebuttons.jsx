@@ -1,13 +1,30 @@
 import React, { useState } from "react";
+import api from './api/axiosConfig';
+import MealOutput from "./MealOutput";
 
-function MealTimebuttons() {
-    const [mealTime, setMealTime] = useState('');
-    const [season, setSeason] = useState('');
 
-    const handleSubmit = (event) => {
+
+
+export const MealTimebuttons = (props) => {
+    const [mealTimeName, setMealTime] = useState('');
+    const [seasonName, setSeason] = useState('');
+    const [mealName, setMeal] = useState('');
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('MealTime: ${mealtime}, Season: ${season}');
-    }
+        try {
+          const response = await api.get('http://localhost:8080/api/v1/auth/random', { params: { seasonName, mealTimeName } });
+          const mealName = response.data;
+          console.log("Meal name:", mealName);
+          setMeal(mealName);
+          props.mealName(mealName);
+          
+        } catch (error) {
+          console.error(error);
+          console.log(error.response);
+          
+        }
+      };
 
 
             return (
@@ -21,7 +38,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="mealtime"
                             value="breakfast"
-                            checked={mealTime === "breakfast"}
+                            checked={mealTimeName === "breakfast"}
                             onChange={(event) => setMealTime(event.target.value)} 
                             />
                             Breakfast
@@ -31,7 +48,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="mealtime"
                             value="lunch"
-                            checked={mealTime === "lunch"}
+                            checked={mealTimeName === "lunch"}
                             onChange={(event) => setMealTime(event.target.value)} 
                             />
                             Lunch
@@ -41,7 +58,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="mealtime"
                             value="dinner"
-                            checked={mealTime === "dinner"}
+                            checked={mealTimeName === "dinner"}
                             onChange={(event) => setMealTime(event.target.value)} 
                             />
                             Dinner
@@ -54,7 +71,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="season"
                             value="spring"
-                            checked={season === "spring"}
+                            checked={seasonName === "spring"}
                             onChange={(event) => setSeason(event.target.value)} 
                             />
                             Spring
@@ -64,7 +81,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="season"
                             value="summer"
-                            checked={season === "summer"}
+                            checked={seasonName === "summer"}
                             onChange={(event) => setSeason(event.target.value)} 
                             />
                             Summer
@@ -74,7 +91,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="season"
                             value="autumn"
-                            checked={season === "autumn"}
+                            checked={seasonName === "autumn"}
                             onChange={(event) => setSeason(event.target.value)} 
                             />
                             Autumn
@@ -84,7 +101,7 @@ function MealTimebuttons() {
                             type="radio"
                             name="season"
                             value="winter"
-                            checked={season === "winter"}
+                            checked={seasonName === "winter"}
                             onChange={(event) => setSeason(event.target.value)} 
                             />
                             Winter

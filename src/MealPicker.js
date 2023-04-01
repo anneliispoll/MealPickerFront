@@ -7,9 +7,11 @@ import './MealPicker.css';
 import { IconContext } from 'react-icons';
 import logo from './MealPicker-logo copy.png';
 import MealTimebuttons from './MealTimebuttons';
+import MealOutput from './MealOutput';
 
 function MealPicker() {
     const [sidebar, setSidebar] = useState(false);
+    const [mealName, setMeal] = useState('');
 
     const showSidebar = () => setSidebar(!sidebar);
   return (
@@ -45,10 +47,11 @@ function MealPicker() {
       <div className='title-container'>
         <div className='column'>
       <h1 className='title'>RANDOM MEAL PICKER</h1>
-      <MealTimebuttons />
+      <MealTimebuttons mealName={setMeal} />
       </div>
       <div className='column'>
       <h1 className='subtitle'>YOUR RANDOM MEAL IS:</h1>
+      <MealOutput mealName={mealName} />
        </div>
       </div>
     </>
