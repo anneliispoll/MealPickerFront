@@ -151,13 +151,15 @@ span {
   
   .title {
     margin: 0 40px 10px 0;
-    font-size: 30px;
+    font-size: 25px;
+    font-weight: bold;
   }
   
   .subtitle {
     margin-top: 0px;
     margin-left: 90px;
-    font-size: 30px;
+    font-size: 25px;
+    font-weight: bold;
   }
 
   @media (max-width: 767px) {

@@ -6,6 +6,7 @@ import { SidebarData } from './SidebarDataNewMeal';
 import './NewMeal.css';
 import { IconContext } from 'react-icons';
 import logo from './MealPicker-logo copy.png';
+import AddNewMeal from './AddNewMeal';
 
 function NewMeal() {
 
@@ -43,11 +44,13 @@ return (
 
 <img src={logo} alt='logo' className='mealpickerlogo'/>
     </IconContext.Provider>
-    <div className='newmeal'>
-      <h1>New meal</h1>
+      <div className='title-container'>
+        <div className='column'>
+      <h1 className='title'>ADD NEW MEAL</h1>
+        <AddNewMeal />
+    </div>
     </div>
     </>
 )
 }
-
 export default NewMeal;
