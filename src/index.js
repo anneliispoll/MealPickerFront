@@ -8,10 +8,17 @@ import {
   createBrowserRouter,
   RouterProvider,
   Route,
+  Navigate
 } from "react-router-dom";
 import MealPicker from './MealPicker';
 import YourMeals from './YourMeals';
 import NewMeal from './NewMeal';
+
+
+function AuthGuard({ element }) {
+  const isAuthenticated = localStorage.getItem('token') !== null;
+  return isAuthenticated ? element : <Navigate to="/login" />;
+}
 
 const router = createBrowserRouter([
   {
@@ -28,17 +35,17 @@ const router = createBrowserRouter([
   {
 
     path: "/mealpicker",
-    element: <MealPicker/>
+    element: <AuthGuard element={<MealPicker />} />
   },
   {
 
     path: "/newmeal",
-    element: <NewMeal/>
+    element: <AuthGuard element={<NewMeal />} />
   },
   {
 
     path: "/yourmeals",
-    element: <YourMeals/>
+    element: <AuthGuard element={<YourMeals/>} />
   }
 ]);
 
