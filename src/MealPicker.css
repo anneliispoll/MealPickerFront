@@ -162,10 +162,24 @@ span {
     font-weight: bold;
   }
 
-  @media (max-width: 767px) {
+ /* @media (max-width: 767px) {
     .title-container {
       flex-wrap: wrap;
       justify-content: center;
     }
+} */
+
+@media (max-width: 767px) {
+  .subtitle {
+    margin-top: 10px;
+    
+    
+  }
 }
 
+@media (max-width: 767px) {
+  .title-container {
+    flex-wrap: flex;
+    justify-content: column;
+  }
+}

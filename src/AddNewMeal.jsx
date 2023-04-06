@@ -7,45 +7,26 @@ export const AddNewMeal = (props) => {
     const [mealTimeName, setMealTime] = useState([]);
     const [seasonName, setSeason] = useState([]);
     const [mealName, setMeal] = useState('');
+    const [isAdded, setIsAdded] = useState(false);
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          // Get the IDs of the selected meal times
-          const mealTimeIds = await Promise.all(
-            mealTimeName.map(async (name) => {
-              const response = await api.get(
-                `http://localhost:8080/api/v1/auth/meal-times?name=${name}`
-              );
-              return response.data.id;
-            })
-          );
-
-            // Get the IDs of the selected seasons
-    const seasonIds = await Promise.all(
-        seasonName.map(async (name) => {
-          const response = await api.get(
-            `http://localhost:8080/api/v1/auth/seasons?name=${name}`
-          );
-          return response.data.id;
-        })
-      );
-   
-
         // Send the new meal data to the server
         const response = await api.post("http://localhost:8080/api/v1/auth/add", {
             name: mealName,
-            seasonIds: seasonIds,
-            mealTimeIds: mealTimeIds,
+            seasonNames: seasonName,
+            mealTimeNames: mealTimeName,
           });
-          const mealName = response.data;
+          setMeal(response.data);
+          console.log("Meal name:", response.data);
           console.log("Meal name:", mealName);
-          setMeal(mealName);
-          props.mealName(mealName);
+          //props.mealName(response.data);
+         setIsAdded(true); // update the isRegistered state variable to true
         } catch (error) {
-          console.error(error);
-          console.log(error.response);
+        console.error(error);
+        alert("Oops! Something went wrong.")
         }
       };
 
@@ -173,6 +154,7 @@ export const AddNewMeal = (props) => {
                         </label>
                         <div></div>
                         <input value={mealName} onChange={(e) => setMeal(e.target.value)}type="mealName" placeholder="Enter meal name" id="mealName" name="mealName"/>
+                        {isAdded && <p className="success">New meal is successfully added</p>}
                     <button className="start" type="submit">
                         Add
                     </button>

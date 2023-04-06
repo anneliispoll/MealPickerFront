@@ -17,15 +17,8 @@ export const register = (firstname, lastname, email, password) => {
       params: { seasonName, mealTimeName } })
   };
 
-  // Get the ID of the season based on its name
-export const getSeasonIdByName = (seasonName) => {
-  return api.get(`/seasons?name=${seasonName}`);
-  
-};
-
-// Get the ID of the meal time based on its name
-export const getMealTimeIdByName = (mealTimeName) => {
-  return api.get(`/meal-times?name=${mealTimeName}`);
+  export const add = (name, mealTimeNames, seasonNames) => {
+    return api.post('/add', { name, mealTimeNames, seasonNames });
   
 };
 
