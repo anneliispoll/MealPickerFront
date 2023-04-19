@@ -8,10 +8,20 @@ export const AddNewMeal = (props) => {
     const [seasonName, setSeason] = useState([]);
     const [mealName, setMeal] = useState('');
     const [isAdded, setIsAdded] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrorMessage('');
+
+        if (!mealName.trim()) {
+            setErrorMessage("Meal name can't be empty!")
+        } else if (!mealTimeName.length) {
+            setErrorMessage("Please choose at least one meal time")
+        } else if (!seasonName.length) {
+            setErrorMessage("Please choose at least one season")
+        } else {
         try {
         // Send the new meal data to the server
         const response = await api.post("http://localhost:8080/api/v1/auth/add", {
@@ -22,12 +32,12 @@ export const AddNewMeal = (props) => {
           setMeal(response.data);
           console.log("Meal name:", response.data);
           console.log("Meal name:", mealName);
-          //props.mealName(response.data);
          setIsAdded(true); // update the isRegistered state variable to true
         } catch (error) {
         console.error(error);
-        alert("Oops! Something went wrong.")
+        setErrorMessage("Oops! Something went wrong.")
         }
+    }
       };
 
 
@@ -155,6 +165,7 @@ export const AddNewMeal = (props) => {
                         <div></div>
                         <input value={mealName} onChange={(e) => setMeal(e.target.value)}type="mealName" placeholder="Enter meal name" id="mealName" name="mealName"/>
                         {isAdded && <p className="success">New meal is successfully added</p>}
+                        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                     <button className="start" type="submit">
                         Add
                     </button>
